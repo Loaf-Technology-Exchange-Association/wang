@@ -140,7 +140,7 @@ def cal_PR(config_file, checkpoint_file, img_path, anno_path):
         image = os.path.join(img_path, image_name)
         predict_result = inference_detector(model, image)
         labels = []
-        for step, j in enumerate(range(i, len(annos)), 1):
+        for step, j in enumerate(range(i+1, len(annos)), 2):
             related_anno = annos[j]['image_id']
             if related_anno == image_id:
                 labels.append(dict(bbox=annos[j]['bbox'], category_id=annos[j]['category_id']))
@@ -184,6 +184,7 @@ def write_txt(path, name, is_qualified, map):
     else:
         txt = open(os.path.join(path, "unqualified.txt"), mode="a+", encoding='utf-8')
     txt.write(name)
+    txt.write("    ")
     txt.write(str(map))
     txt.write('\n')
     txt.close()
